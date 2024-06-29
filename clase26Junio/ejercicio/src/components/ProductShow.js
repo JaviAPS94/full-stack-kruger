@@ -1,3 +1,4 @@
+import "./ProductShow.css";
 import cellphone from "../images/cellphone.svg";
 import computer from "../images/computer.svg";
 import printer from "../images/printer.svg";
@@ -11,7 +12,7 @@ const images = {
 };
 
 function ProductShow({ type }) {
-  return <img alt={type} src={images[type]} />;
+  return <img className="product-show" alt={type} src={images[type]} />;
 }
 
 export default ProductShow;
