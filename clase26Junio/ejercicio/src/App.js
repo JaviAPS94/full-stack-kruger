@@ -9,11 +9,18 @@ function App() {
     return productsBase[Math.floor(Math.random() * productsBase.length)];
   };
 
+  const handleAddProduct = () => {
+    setProducts([...products, getRandomProduct()]);
+  };
+
+  const renderedProducts = products.map((product, index) => {
+    return <ProductShow type={product} key={index} />;
+  });
+
   return (
     <div>
-      <ProductShow type="cellphone" />
-      <ProductShow type="printer" />
-      {getRandomProduct()}
+      <button onClick={handleAddProduct}>Add product</button>
+      {renderedProducts}
     </div>
   );
 }
