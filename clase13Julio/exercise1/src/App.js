@@ -37,6 +37,25 @@ function App() {
     fontSize: "20px",
   };
 
+  // Estilos usando objetos en una sola variable
+
+  const styles = {
+    Container: {
+      background: "yellow",
+      padding: "20px",
+      width: "300px",
+    },
+    Title: {
+      fontSize: "30px",
+      fontWeight: "bold",
+    },
+    Label: {
+      color: "purple",
+      textAlign: "center",
+      fontSize: "20px",
+    },
+  };
+
   return (
     <>
       <h3 style={{ color: "blue", background: "yellow" }}>
@@ -48,6 +67,13 @@ function App() {
       <div style={Container}>
         <h3 style={Title}>Esto es un titulo con estilos usando objetos</h3>
         <p style={Label}>Estos es un texto usando objetos</p>
+      </div>
+
+      <div style={styles.Container}>
+        <h3 style={styles.Title}>
+          Esto es un titulo con estilos usando objetos
+        </h3>
+        <p style={styles.Label}>Estos es un texto usando objetos</p>
       </div>
 
       <div>
