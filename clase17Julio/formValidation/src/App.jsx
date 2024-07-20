@@ -45,6 +45,9 @@ function App() {
         value={formik.values.name}
         onChange={formik.handleChange}
       />
+      {formik.touched.name && formik.errors.name ? (
+        <span style={{ color: "red" }}>{formik.errors.name}</span>
+      ) : null}
       <br />
       <label htmlFor="email">Email: </label>
       <input
@@ -54,6 +57,9 @@ function App() {
         value={formik.values.email}
         onChange={formik.handleChange}
       />
+      {formik.touched.email && formik.errors.email ? (
+        <span style={{ color: "red" }}>{formik.errors.email}</span>
+      ) : null}
       <br />
       <select
         name="chips"
@@ -64,6 +70,9 @@ function App() {
         <option value="yes" label="Yes" />
         <option value="no" label="No" />
       </select>
+      {formik.touched.chips && formik.errors.chips ? (
+        <span style={{ color: "red" }}>{formik.errors.chips}</span>
+      ) : null}
       <br />
       <label htmlFor="specialRequests">Special requests?</label>
       <br />
@@ -82,6 +91,9 @@ function App() {
         checked={formik.values.terms}
       />
       <label htmlFor="terms">I accept the terms and conditions</label>
+      {formik.touched.terms && formik.errors.terms ? (
+        <span style={{ color: "red" }}>{formik.errors.terms}</span>
+      ) : null}
       <br />
       <button type="submit">Make an order!!!</button>
     </form>
