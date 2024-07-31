@@ -1,5 +1,17 @@
 import { useState } from "react";
 import axios from "axios";
+import {
+  Button,
+  Error,
+  Input,
+  SkeletonDetails,
+  SkeletonTitle,
+  Title,
+  WeatherContainer,
+  WeatherDetails,
+  WeatherInfo,
+  WeatherTitle,
+} from "./styles";
 
 function Weather() {
   const [weather, setWeather] = useState(null);
@@ -14,6 +26,8 @@ function Weather() {
       setError("City is required");
       return;
     }
+
+    setError("");
 
     try {
       setLoading(true);
@@ -33,24 +47,36 @@ function Weather() {
   };
 
   return (
-    <>
-      <h1>Weather App</h1>
-      <input
+    <WeatherContainer>
+      <Title>Weather App</Title>
+      <Input
         type="text"
         value={city}
         onChange={handleCityChange}
         placeholder="Ingresa la ciudad"
       />
-      <button onClick={getWeather}>Get Weather</button>
-      {weather && (
-        <div>
-          <h2>{weather.name}</h2>
-          <p>Temperature: {weather.main.temp}</p>
-          <p>Humedad: {weather.main.humidity}</p>
-          <p>Descripcion: {weather.weather[0].description}</p>
-        </div>
+      <Button onClick={getWeather}>Get Weather</Button>
+      {error && <Error>{error}</Error>}
+      {loading ? (
+        <WeatherInfo>
+          <SkeletonTitle />
+          <SkeletonDetails />
+          <SkeletonDetails />
+          <SkeletonDetails />
+        </WeatherInfo>
+      ) : (
+        weather && (
+          <WeatherInfo>
+            <WeatherTitle>{weather.name}</WeatherTitle>
+            <WeatherDetails>Temperature: {weather.main.temp}</WeatherDetails>
+            <WeatherDetails>Humedad: {weather.main.humidity}</WeatherDetails>
+            <WeatherDetails>
+              Descripcion: {weather.weather[0].description}
+            </WeatherDetails>
+          </WeatherInfo>
+        )
       )}
-    </>
+    </WeatherContainer>
   );
 }
 
