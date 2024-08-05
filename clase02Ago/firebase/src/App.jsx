@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createUser, getUsers } from "./services/firebase";
 
 function App() {
   const [users, setUsers] = useState([]);
+  const nameRef = useRef();
+  const ageRef = useRef();
+  const hasDogRef = useRef();
 
   const fetchData = async () => {
     const users = await getUsers();
@@ -10,10 +13,13 @@ function App() {
   };
 
   const handleCreateUser = async () => {
-    await createUser({ name: "Juan", age: 30, hasDog: true });
+    await createUser({
+      name: nameRef.current.value,
+      age: Number(ageRef.current.value),
+      hasDog: hasDogRef.current.checked,
+    });
+    await fetchData();
   };
-
-  handleCreateUser();
 
   useEffect(() => {
     fetchData();
@@ -21,6 +27,14 @@ function App() {
 
   return (
     <>
+      <h1>Users</h1>
+      <div>
+        <input placeholder="Nombre" ref={nameRef} />
+        <input placeholder="Edad" ref={ageRef} />
+        <input type="checkbox" ref={hasDogRef} />
+        Tienes perro?
+        <button onClick={handleCreateUser}>Crear usuario</button>
+      </div>
       <ul>
         {users.map((user) => (
           <li key={user.id}>
