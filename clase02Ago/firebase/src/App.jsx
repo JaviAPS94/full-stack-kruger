@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { createUser, getUsers } from "./services/firebase";
+import {
+  createUser,
+  getFlatsByUserId,
+  getUserByName,
+  getUsers,
+} from "./services/firebase";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -20,6 +25,18 @@ function App() {
     });
     await fetchData();
   };
+
+  const handleGetUsersByName = async () => {
+    const users = await getUserByName("Alex");
+    console.log(users);
+  };
+
+  const handleGetFlatsByUserId = async () => {
+    const flats = await getFlatsByUserId("84Ca9Rc5EP8QEk3kegta");
+    console.log(flats);
+  };
+
+  handleGetFlatsByUserId();
 
   useEffect(() => {
     fetchData();
