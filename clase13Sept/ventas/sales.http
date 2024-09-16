@@ -1,0 +1,22 @@
+# GET http://localhost:8080/sales
+# Content-Type: application/json
+
+# POST http://localhost:8080/sales
+# Content-Type: application/json
+
+# {
+#     "date": "2024-09-14",
+#     "product": "Play Station 5",
+#     "quantity": 1,
+#     "price": 500
+# }
+
+PUT http://localhost:8080/sales/1
+Content-Type: application/json
+
+{
+    "date": "2024-09-14",
+    "product": "Play Station 5",
+    "quantity": 1,
+    "price": 500
+}
