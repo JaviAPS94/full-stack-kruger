@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Juguete actualizado",
+    "price": 500,
+    "description": "Barbie es una muñeca de plástico fabricada por la empresa estadounidense de juguetes Mattel, Inc. Fue lanzada al mercado el 9 de marzo de 1959 por Ruth Handler, empresaria estadounidense, esposa del cofundador de la compañía, Elliot Handler. Ruth Handler observó a su hija Bárbara jugar con muñecas de papel de mujeres adultas, y a pesar de que en aquel momento las muñecas de juguete eran representaciones de bebés, ella vio el potencial de crear una muñeca que permitiera a las niñas soñar con ser adultas. Durante toda su historia, Barbie ha sido objeto de controversias y críticas, tanto por su diseño como por su impacto en la sociedad. A pesar de ello, Barbie ha sido un éxito de ventas y se ha convertido en un icono de la cultura popular.",
+    "picture": "https://www.barbie.com/es-es/imagen/2021/03/09/Barbie-62nd-Anniversary-Logo-1200x1200.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Hot Wheels",
+    "price": 80,
+    "description": "Hot Wheels es una marca de coches a escala de la compañía juguetera estadounidense Mattel, introducida en 1968. Destacan por sus diseños coloridos y por sus detalles realistas. Los coches Hot Wheels son muy populares entre los coleccionistas y los aficionados a los coches a escala. La marca Hot Wheels ha lanzado más de 4.000 modelos diferentes de coches a escala desde su creación.",
+    "picture": "https://www.hotwheels.com/es-es/imagen/2021/03/09/Hot-Wheels-53rd-Anniversary-Logo-1200x1200.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Peluche",
+    "price": 50,
+    "description": "Un peluche es un juguete de tela relleno de algodón, lana u otro material suave. Los peluches son muy populares entre los niños y las niñas, y también entre los adultos. Los peluches pueden tener forma de animales, personajes de dibujos animados, superhéroes, etc. Los peluches son un regalo muy común en ocasiones especiales como cumpleaños, Navidad, San Valentín, etc.",
+    "picture": "https://www.peluches.org/imagen/2021/03/09/Peluche-Logo-1200x1200.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Spiderman",
+    "price": 50,
+    "description": "Juguete de plastico",
+    "picture": "https://spiderman.com"
+  }
+]
