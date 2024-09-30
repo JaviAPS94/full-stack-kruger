@@ -43,20 +43,7 @@ const createToy = async (req, res) => {
   res.status(201).end();
 };
 
-//los datos del juguete llegan como datos a nuestro request, req.body
-//creando un nuevo recurso, el codigo de respuesta es 201
-//app.post("/api/v1/toys");
-
-//Vamos a crear un servicio para obtener el toy por id
-// /api/v1/toys/:id
-
-// Vamos a crear un servicio para eliminar un toy
-// /api/v1/toys/:id
-
-// Vamos a crear un servicio para modificar un tay de manera parcial
-// /api/v1/toys/:id
-
-app.patch("/api/v1/toys/:id", async (req, res) => {
+const updateToy = async (req, res) => {
   const id = Number(req.params.id);
   const toys = await getToys();
   const toysIndex = toys.findIndex((toy) => toy.id === id);
@@ -74,7 +61,22 @@ app.patch("/api/v1/toys/:id", async (req, res) => {
 
   await fs.writeFile("./db/toys.json", JSON.stringify(toys, null, 2));
   res.end();
-});
+};
+
+//los datos del juguete llegan como datos a nuestro request, req.body
+//creando un nuevo recurso, el codigo de respuesta es 201
+//app.post("/api/v1/toys");
+
+//Vamos a crear un servicio para obtener el toy por id
+// /api/v1/toys/:id
+
+// Vamos a crear un servicio para eliminar un toy
+// /api/v1/toys/:id
+
+// Vamos a crear un servicio para modificar un tay de manera parcial
+// /api/v1/toys/:id
+
+app.patch("/api/v1/toys/:id", updateToy);
 
 app.get("/api/v1/toys", getAllToys); //solo vamos a tener la definicion de nuestro servicio, es decir solo tenemos la ruta
 app.post("/api/v1/toys", createToy);
