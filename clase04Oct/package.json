@@ -1,0 +1,10 @@
+{
+  "name": "clase04Oct",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "mongodb": "^6.9.0"
+  }
+}
