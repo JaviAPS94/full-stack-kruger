@@ -19,6 +19,10 @@ const productSchema = new mongoose.Schema({
     min: [0, "A product must have a positive price"],
     max: [10000, "A product must have a price less than 10000"],
   },
+  category: {
+    type: String,
+    required: [true, "A product must have category"],
+  },
 });
 
 export const Product = mongoose.model("products", productSchema);
