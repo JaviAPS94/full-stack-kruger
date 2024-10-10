@@ -104,10 +104,49 @@ const findProductsByFilters = async (req, res) => {
   }
 };
 
+const getProductsStatistics = async (req, res) => {
+  try {
+    //Vamos a definir los pasos de nuestro pipeline (es la ejecucion de una secuencia de pasos u operaciones)
+    //El primer paso es un match -> es el paso donde vamos a filtrar los documentos
+    const statistics = await Product.aggregate([
+      //Primer paso match, el resultado o la salida de este paso sirve como datos de entra del paso siguiente
+      {
+        $match: { price: { $gte: 5 } },
+      },
+      //El segundo paso es procesar los documentos para resolver un proceso complejo
+      //Vamos a agrupar todos los productos y vamos a hacer lo siguiente:
+      //1.- Vamos a contar cuantos productos hay en total
+      //2.- Vamos a calcular el precio promedio de nuestros productos
+      //3.- Vamos a obtener el precio minimo
+      //4.- Vamos a obtener el precio maximo
+      {
+        $group: {
+          //Para poder definir cual es la condicion de agrupamiento, usamos el atributo _id
+          //Vamos a agrupar todos los productos
+          // _id: null,
+          _id: "$category",
+          count: { $sum: 1 },
+          avgPrice: { $avg: "$price" },
+          minPrice: { $min: "$price" },
+          maxPrice: { $max: "$price" },
+        },
+      },
+      //El tercer paso es aplicar un ordenamiento
+      {
+        $sort: { avgPrice: -1 },
+      },
+    ]);
+    res.json(statistics);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export {
   getAllProducts,
   saveProduct,
   updateProduct,
   deleteProduct,
   findProductsByFilters,
+  getProductsStatistics,
 };
