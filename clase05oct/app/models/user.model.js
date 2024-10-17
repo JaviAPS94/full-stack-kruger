@@ -20,6 +20,11 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  role: {
+    type: String,
+    enum: ["admin", "user", "author"],
+    default: "user",
+  },
 });
 
 //Vamos a aplicar un pre hook (proceso que se va a ejecutar antes de alamacenar el usuario en BDD)
@@ -56,5 +61,12 @@ userSchema.post("find", function (docs, next) {
   });
   next();
 });
+
+//Vamos a extender la funcionalidad de nuestro schema, de manera que tenga un metodo que nos permita
+//comparar la contraseña que el usuario esta enviando con la contraseña que esta almacenada en BDD
+//recibe como parametro el password que envia el cliente para autenticarse
+userSchema.methods.comparePasswords = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 
 export const User = mongoose.model("users", userSchema);

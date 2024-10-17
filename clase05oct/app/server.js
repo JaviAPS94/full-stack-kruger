@@ -2,6 +2,8 @@ import express from "express";
 import { connectDB } from "./db/db.js";
 import productRoutes from "./routes/product.router.js";
 import userRoutes from "./routes/user.router.js";
+import authRoutes from "./routes/auth.router.js";
+import configs from "./configs/configs.js";
 
 const app = express();
 
@@ -12,7 +14,8 @@ connectDB();
 
 app.use("/products", productRoutes);
 app.use("/users", userRoutes);
+app.use("/auth", authRoutes);
 
-app.listen(8080, () => {
-  console.log("Servidor iniciado en puerto 8080");
+app.listen(configs.PORT, () => {
+  console.log(`Server running on port ${configs.PORT}`);
 });
