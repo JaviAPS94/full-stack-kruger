@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -25,6 +26,8 @@ const userSchema = new mongoose.Schema({
     enum: ["admin", "user", "author"],
     default: "user",
   },
+  resetPasswordToken: String, //para poder generar un identificador unico que vamos a enviar al usuario (correo)
+  resetPasswordExpires: Date, //para poder definir la fecha de expiracion de nuestro token
 });
 
 //Vamos a aplicar un pre hook (proceso que se va a ejecutar antes de alamacenar el usuario en BDD)
@@ -67,6 +70,23 @@ userSchema.post("find", function (docs, next) {
 //recibe como parametro el password que envia el cliente para autenticarse
 userSchema.methods.comparePasswords = async function (password) {
   return await bcrypt.compare(password, this.password);
+};
+
+//Vamos a agregar un metodo a nuestro schema que nos permita generar un token de reseteo de contraseña
+userSchema.methods.generatePasswordToken = function () {
+  //Generamos la cadaena randomica en formato hexadecimal
+  const resetToken = crypto.randomBytes(20).toString("hex");
+
+  //Vamos a guardar el token hasheado
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  //Vamoos a definir el tiempo de expiracion de nuestro token (1 hora)
+  this.resetPasswordExpires = Date.now() + 3600000;
+
+  return resetToken;
 };
 
 export const User = mongoose.model("users", userSchema);

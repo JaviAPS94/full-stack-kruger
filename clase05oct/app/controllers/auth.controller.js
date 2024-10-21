@@ -1,6 +1,7 @@
 import configs from "../configs/configs.js";
 import { User } from "../models/user.model.js";
 import jwt from "jsonwebtoken";
+import sendEmail from "../utils/email.js";
 
 const register = async (req, res) => {
   try {
@@ -45,4 +46,42 @@ const login = async (req, res) => {
   }
 };
 
-export { register, login };
+const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    //1. Vamos a validar si el correo que esta enviando existe o esta alamacenado en la BDD
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    //2.- Vamos a generar un token unico que vamos a enviar al correo del usuario
+    const resetToken = user.generatePasswordToken();
+    await user.save({ validateBeforeSave: false });
+
+    //3.- Vamos a generar la url que vamos a enviar al correo del usuario
+    //http://localhost:5173/reset-password/jkashdfjkasdfhk&hjaf
+    const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
+
+    try {
+      const message = `Para resetear el password, accede al siguiente link: ${resetUrl}`;
+      await sendEmail({
+        email: user.email,
+        subject: "Reset Password",
+        message,
+      });
+      res.json({ message: "Email sent" });
+    } catch (error) {
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpires = undefined;
+
+      await user.save({ validateBeforeSave: false });
+      res.status(500).json({ message: error.message });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export { register, login, forgotPassword };
