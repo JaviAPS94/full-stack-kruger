@@ -2,6 +2,7 @@ import configs from "../configs/configs.js";
 import { User } from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import sendEmail from "../utils/email.js";
+import crypto from "crypto";
 
 const register = async (req, res) => {
   try {
@@ -84,4 +85,41 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-export { register, login, forgotPassword };
+const resetPassword = async (req, res) => {
+  try {
+    //1.- Vamos a obtener el token del request
+    const { token } = req.params;
+    //2.- Vamos a obtener la nueva password que ha configurado el usuario
+    const { password } = req.body;
+    //3.- En BDD tenemos el token pero esta hasheado y lo que llega en el request esta en texto plano
+    //Vamos a hashear el token que llega en el request para poder compararlo con el token hasheado que tenemos en la BDD
+    const resetPasswordToken = crypto
+      .createHash("sha256")
+      .update(token)
+      .digest("hex");
+
+    //4.- Vamos a buscar ese usuario de acuerdo al token hasheado, y ademas vamos a aplicar la condicion de tiempo de vida del token
+    const user = await User.findOne({
+      resetPasswordToken,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    //5.- Validar si el usuario que estamos buscando existe o no
+    if (!user) {
+      return res.status(400).json({ message: "Invalid or expired token" });
+    }
+
+    //6.- Vamos a actualizar la password del usuario
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    await user.save();
+
+    res.json({ message: "Password updated" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export { register, login, forgotPassword, resetPassword };
