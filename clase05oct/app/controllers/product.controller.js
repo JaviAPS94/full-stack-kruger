@@ -1,4 +1,5 @@
 import { Product } from "../models/product.model.js";
+import logger from "../utils/logger.js";
 
 const getAllProducts = async (req, res) => {
   try {
@@ -15,6 +16,7 @@ const saveProduct = async (req, res) => {
     await product.save();
     res.status(201).send(product);
   } catch (error) {
+    logger.error(error.message);
     res.status(400).send(error);
   }
 };

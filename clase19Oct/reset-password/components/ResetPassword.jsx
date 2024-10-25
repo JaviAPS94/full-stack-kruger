@@ -1,17 +1,36 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
   const { token } = useParams();
 
-  console.log(token);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setMessage("Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/auth/reset-password/${token}`,
+        { password }
+      );
+      setMessage(response.data.message);
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
 
   return (
     <>
       <h1>Reset Password</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="password"
           value={password}
@@ -28,6 +47,7 @@ const ResetPassword = () => {
         />
         <button type="submit">Reset Password</button>
       </form>
+      {message && <p>{message}</p>}
     </>
   );
 };
