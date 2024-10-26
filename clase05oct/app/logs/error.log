@@ -1,2 +1,4 @@
 {"level":"error","message":"Esto es un error"}
 {"level":"warn","message":"Esto es un warn"}
+2024-10-25 18:05:28 [ERROR]: Esto es un error
+2024-10-25 18:05:28 [WARNING]: Esto es un warning

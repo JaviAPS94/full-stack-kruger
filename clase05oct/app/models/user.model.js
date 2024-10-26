@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
   },
   resetPasswordToken: String, //para poder generar un identificador unico que vamos a enviar al usuario (correo)
   resetPasswordExpires: Date, //para poder definir la fecha de expiracion de nuestro token
+  deletedAt: {
+    type: Date,
+    default: null,
+  },
 });
 
 //Vamos a aplicar un pre hook (proceso que se va a ejecutar antes de alamacenar el usuario en BDD)
