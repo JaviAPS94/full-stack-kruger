@@ -1,0 +1,1 @@
+En esta capa vamos a tener la definicion de los modelos con sus respectivos schemas y las referencias

@@ -1,0 +1,4 @@
+En esta capa vamos a definir las rutas o paths de nuestros servicios
+/users -> / GET
+Aqui tambien podemos aplicar los middlewares
+Esta capa se comunica con nuestros controladores, que cada ruta hace un llamado a un metodo del controlador

@@ -1,0 +1,8 @@
+Podemos tener un archivo de configuraciones para cargar las variables de ambiente
+- En estas variables deben definir los parametros de conexion a la BDD
+- "mongodb+srv://alexp:admin1234@krugerbackendap.qqltu.mongodb.net/products?retryWrites=true&w=majority&appName=KrugerBackendAP"
+- USERNAME como variable de ambiente
+- PASSWORD como variable de ambiente
+- DB_NAME como variable de ambiente
+Utilizar estos parametros dentro de un template string
+Cualquier variable sensible deberia estar definida aqui

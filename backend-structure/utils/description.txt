@@ -1,0 +1,3 @@
+Opcional, Cualquier funcion o metodo que sea externo a los recursos que ya tenemos
+- Envio de correos
+- Loggers

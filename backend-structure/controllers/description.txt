@@ -1,0 +1,4 @@
+En esta capa vamos a tener la implementacion de cada uno de los servicios
+- Manejo de requests del cliente, dar un response al cliente y la LOGICA DE NEGOCIO
+- Esta se comunica con la capa de repositorios (models)
+- En el caso que necesitemos hacer consultas a la BDD, tenemos que utilizar los modelos
