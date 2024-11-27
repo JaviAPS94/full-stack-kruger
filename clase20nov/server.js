@@ -8,11 +8,13 @@
 //Opcional: Construir un servicio que permita traer el informacion del usuario por su id
 import express from "express";
 import userRoutes from "./routes/user.router.js";
+import cors from "cors";
 
 const app = express();
 
 //middleware para poder recibir informacion en nuestros servicios en formato json
 app.use(express.json());
+app.use(cors());
 
 app.use("/users", userRoutes);
 
